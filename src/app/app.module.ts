@@ -5,6 +5,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MaterialModule } from './material.module';
 import { PersonComponent } from './person/person.component';
+import { StoreModule } from '@ngrx/store';
+import { appReducers } from './store';
 
 @NgModule({
   declarations: [
@@ -14,7 +16,8 @@ import { PersonComponent } from './person/person.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    MaterialModule
+    MaterialModule,
+    StoreModule.forRoot(appReducers)
   ],
   providers: [],
   bootstrap: [AppComponent]
