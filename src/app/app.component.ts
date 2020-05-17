@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { Person } from './person';
 
 import * as faker from 'faker';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 import { AppState } from './store';
 import { PersonNew } from './store/person.actions';
 
@@ -16,7 +16,7 @@ export class AppComponent {
   people$: Observable<Person[]>;
 
   constructor(private store: Store<AppState>){
-
+    this.people$ = this.store.pipe(select('people'));
   }
 
   addNew(){
