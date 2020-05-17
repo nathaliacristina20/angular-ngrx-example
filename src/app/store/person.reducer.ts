@@ -11,11 +11,11 @@ export function reducer(state = initialState, action: PersonActions.PersonAction
                 return state.concat([action.payload.person]);                
                 case PersonActions.PersonActionTypes.PERSON_UPDATE:
                     let people = state.slice();
-                    let i = people.findIndex(p => p.id === action.payload.person.id);
+                    let i = people.findIndex(p => p.id == action.payload.person.id);
                     if (i >= 0){
                         people[i] = action.payload.person;
                     }
-                    return state;
+                    return people;
                     case PersonActions.PersonActionTypes.PERSON_DELETE:
                         return state.filter(p => p.id != action.payload.id);
     }
