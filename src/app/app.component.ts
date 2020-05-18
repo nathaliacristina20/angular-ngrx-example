@@ -4,7 +4,7 @@ import { Person } from './person';
 
 import * as faker from 'faker';
 import { Store, select } from '@ngrx/store';
-import { AppState } from './store';
+import { AppState, selectPeople, selectPeopleCount } from './store';
 import { PersonNew, PersonAll, PersonUpdate, PersonDelete } from './store/person.actions';
 
 @Component({
@@ -19,6 +19,9 @@ export class AppComponent {
 
     this.store.dispatch(new PersonAll());
     this.people$ = this.store.pipe(select('people'));
+    // this.people$ = this.store.select(selectPeople);
+    this.store.select(selectPeopleCount)
+       .subscribe(n => console.log(n));
   }
 
   addNew(){
