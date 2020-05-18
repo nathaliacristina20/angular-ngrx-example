@@ -3,10 +3,11 @@ import { Observable } from 'rxjs';
 import { Person } from './person';
 
 import * as faker from 'faker';
-import { Store, select } from '@ngrx/store';
-import { AppState, selectPeople, selectPeopleCount } from './store';
+import { Store } from '@ngrx/store';
+import { AppState } from './store';
 import { PersonNew, PersonAll, PersonUpdate, PersonDelete } from './store/person.actions';
 
+import * as fromPersonsSelectors from './store/person.selectors';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -18,10 +19,10 @@ export class AppComponent {
   constructor(private store: Store<AppState>){
 
     this.store.dispatch(new PersonAll());
-    this.people$ = this.store.pipe(select('people'));
+    this.people$ = this.store.select(fromPersonsSelectors.selectAll);
+    // this.people$ = this.store.pipe(select('people'));
     // this.people$ = this.store.select(selectPeople);
-    this.store.select(selectPeopleCount)
-       .subscribe(n => console.log(n));
+    // this.store.select(selectPeopleCount).subscribe(n => console.log(n));
   }
 
   addNew(){
@@ -47,7 +48,7 @@ export class AppComponent {
       age: Math.round(Math.random() * 100)
     }    
 
-    this.store.dispatch(new PersonUpdate({ person: { ...p, ...person } }));
+    this.store.dispatch(new PersonUpdate({ id: p.id, changes: person }));
 
   }
 
