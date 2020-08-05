@@ -4,8 +4,9 @@ import { Person } from './person';
 
 import * as faker from 'faker';
 import { Store, select } from '@ngrx/store';
-import { AppState, selectPeople, selectPeopleCount } from './store';
-import { PersonNew, PersonAll, PersonUpdate, PersonDelete } from './store/person.actions';
+import { AppState } from './store';
+import {  selectPeople, selectPeopleCount } from './store/selectors/person.selector';
+import { PersonNew, PersonAll, PersonUpdate, PersonDelete } from './store/actions/person.actions';
 
 @Component({
   selector: 'app-root',

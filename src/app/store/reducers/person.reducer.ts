@@ -1,5 +1,5 @@
-import * as PersonActions from './person.actions';
-import { Person } from '../person';
+import * as PersonActions from '../actions/person.actions';
+import { Person } from '../../person';
 
 export const initialState: Person[] = [];
 
