@@ -5,10 +5,7 @@ import { Person } from "./person";
 import * as faker from "faker";
 import { Store, select } from "@ngrx/store";
 import { AppState } from "./store/reducers";
-import {
-  selectPeople,
-  selectPeopleCount,
-} from "./store/selectors/person.selector";
+import { selectPeopleCount } from "./store/selectors/person.selector";
 import {
   PersonNew,
   PersonAll,
@@ -23,22 +20,29 @@ import {
   styleUrls: ["./app.component.css"],
 })
 export class AppComponent {
-  people$: Observable<Person[]>;
+  //people$: Observable<Person[]>;
   countPeoples$: Observable<number>;
+
+  public peoples = [];
+
+  public error: any;
+  public loading: boolean;
 
   constructor(private store: Store<AppState>) {
     //this.store.dispatch(new PersonAll());
+
     this.store.dispatch(new PersonOne({ person: "nathaliacristina20" }));
 
-    // Pega o state inteiro de peoples
-    this.people$ = this.store.pipe(select("people"));
+    this.store.pipe(select("people")).subscribe((data) => {
+      this.loading = data.loading;
+      this.peoples = data.people;
+      this.error = data.error;
+    });
 
-    // this.people$ = this.store.select(selectPeople);
-
-    
+    //this.people$ = this.store.select(selectPeople);
   }
 
-  ngOnInit(){
+  ngOnInit() {
     this.countPeoples$ = this.store.select(selectPeopleCount);
   }
 

@@ -1,12 +1,25 @@
 <div fxLayout="column" fxLayoutAlign="start center">
 
-  <h1>Quantidade de pessoas: {{countPeoples$ | async}}</h1>
-  <div fxLayout="column" fxLayoutAlign="start stretch" fxFlex="70">
-    <app-person *ngFor="let p of people$ | async" [person]="p" (delete)="delete($event)" (update)="update($event)"></app-person>
+  <div *ngIf="!loading else boxLoading">
+
+    <div *ngIf="!error else boxError">
+      <h1>Quantidade de pessoas: {{countPeoples$ | async}}</h1>
+      <div fxLayout="column" fxLayoutAlign="start stretch" fxFlex="70">
+        <app-person *ngFor="let p of peoples" [person]="p" (delete)="delete($event)" (update)="update($event)">
+        </app-person>
+      </div>
+    </div>
+
+    <ng-template #boxError>
+      <p>{{error.message}}</p>
+    </ng-template>
+
   </div>
 
+  <ng-template #boxLoading>
+    <p>Carregando...</p>
+  </ng-template>
+
   <button mat-fab color="warn" class="button-add" (click)="addNew()">New</button>
-  
+
 </div>
-
-

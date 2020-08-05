@@ -1,11 +1,10 @@
-import { Person } from '../../person';
-import { ActionReducerMap } from '@ngrx/store';
+import { Action, ActionReducerMap } from '@ngrx/store';
 import * as fromPersonReducer from './person.reducer';
 
 export interface AppState {
-    people: Person[];
+    people: fromPersonReducer.IPeopleState;
 }
 
-export const appReducers: ActionReducerMap<AppState> = {
+export const appReducers: ActionReducerMap<AppState, Action> = {
     people: fromPersonReducer.reducer
 };

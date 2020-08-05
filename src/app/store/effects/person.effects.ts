@@ -21,7 +21,9 @@ export class PersonEffects {
         return this.personService.getUser(userInfo.payload.person).
             pipe(
                 map(person => new PersonOneSuccess({ person: person.name })),
-                catchError(error => of(new PersonOneFail('deu tudo errado')))
+                catchError(error => {
+                    return of(new PersonOneFail(error && error.message ? error.message : 'Internal Error'));
+                })
             );
         }
     ));
