@@ -1,6 +1,6 @@
-import { Person } from '../person';
+import { Person } from '../../person';
 import { ActionReducerMap } from '@ngrx/store';
-import * as fromPersonReducer from './reducers/person.reducer';
+import * as fromPersonReducer from './person.reducer';
 
 export interface AppState {
     people: Person[];
