@@ -18,11 +18,14 @@ export class PersonEffects {
     @Effect()
     loadPerson$ = this.actions$.pipe( ofType<PersonOne>( PersonActionTypes.PERSON_ONE ),
     mergeMap((userInfo) => {
-        return this.personService.getUser(userInfo.payload.person).
+        return this.personService.getUser(userInfo.username).
             pipe(
                 map(person => new PersonOneSuccess({ person: person.name })),
                 catchError(error => {
-                    return of(new PersonOneFail(error && error.message ? error.message : 'Internal Error'));
+                    const err = {
+                        message: error && error.message ? error.message : 'Internal Error'
+                    }
+                    return of(new PersonOneFail(err));
                 })
             );
         }

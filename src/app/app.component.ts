@@ -12,7 +12,9 @@ import {
   PersonUpdate,
   PersonDelete,
   PersonOne,
+  PersonActionTypes,
 } from "./store/actions/person.actions";
+import { Actions, ofType } from "@ngrx/effects";
 
 @Component({
   selector: "app-root",
@@ -28,16 +30,22 @@ export class AppComponent {
   public error: any;
   public loading: boolean;
 
-  constructor(private store: Store<AppState>) {
+  constructor(private store: Store<AppState>, actions$: Actions) {
     //this.store.dispatch(new PersonAll());
 
-    this.store.dispatch(new PersonOne({ person: "nathaliacristina20" }));
+    this.store.dispatch(new PersonOne("nathaliacristina20"));
 
     this.store.pipe(select("people")).subscribe((data) => {
+      console.log("data", data);
       this.loading = data.loading;
       this.peoples = data.people;
-      this.error = data.error;
     });
+
+    actions$
+      .pipe(ofType(PersonActionTypes.PERSON_ONE_FAIL))
+      .subscribe((error: { error: { message: string } }) => {
+        this.error = error.error.message;
+      });
 
     //this.people$ = this.store.select(selectPeople);
   }

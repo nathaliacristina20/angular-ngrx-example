@@ -49,7 +49,7 @@ export function reducer(
       return {
         people: [],
         error: {
-          message: action.payload
+          message: action.error.message
         },
         loading: false,
       };

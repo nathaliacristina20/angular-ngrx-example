@@ -22,7 +22,7 @@ export class PersonNew implements Action {
 
 export class PersonOne implements Action {
     readonly type = PersonActionTypes.PERSON_ONE;
-    constructor(public payload: { person: string }){ }
+    constructor(public username: string){ }
 }
 
 export class PersonOneSuccess implements Action {
@@ -33,7 +33,7 @@ export class PersonOneSuccess implements Action {
 
 export class PersonOneFail implements Action {
     readonly type = PersonActionTypes.PERSON_ONE_FAIL;
-    constructor(public payload: any){ }
+    constructor(public error: { message: string }){ }
 }
 
 
